@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ImageBackground, Button, StyleSheet } from 'react-native';
+import { Text, View, ImageBackground, Button, StyleSheet, CheckBox} from 'react-native';
 import { TextInput } from 'react-native-web';
 
 
@@ -26,6 +26,22 @@ class App extends React.Component
         </View> 
       )
 
+      if (view === "mapPicker")
+      return (
+        <View style={{width: "100vw", height: "100vh" }}>
+          <ImageBackground source={require("./assets/img/background-mc2.jpg")} style={{width: "100%", height: "100%"}}>
+            <TextInput style={styles.input1}
+                       placeholder="Enter number of kilometers"
+                       placeholderTextColor="#FFF" 
+                       type='off'/>
+            <View style={styles.buttonContainer3}>
+              <Button onPress={() => this.setState({ "view": "mapAccept" })} 
+                      title="Submit" />
+            </View>
+          </ImageBackground>
+        </View> 
+      )
+
     if (view === "other")
       return (
         <View style={{width: "100vw", height: "100vh "}}>
@@ -33,6 +49,23 @@ class App extends React.Component
             <Text>Nesto</Text>
             <Button onPress={() => this.setState({ "view": "main" })} title="natrag" />
           </ImageBackground>
+        </View>
+      )
+
+      if (view === "mapAccept")
+      return (
+        <View style={{width: "100vw", height: "100vh "}}>
+            <div style="width: 100%">
+              <iframe width="100%"
+                      height="600" 
+                      frameborder="0" 
+                      scrolling="no" 
+                      marginheight="0" 
+                      marginwidth="0" 
+                      src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                      <a href="https://www.gps.ie/wearable-gps/">wearable trackers</a>
+              </iframe>
+            </div>
         </View>
       )
 
@@ -54,7 +87,7 @@ class App extends React.Component
               <Button onPress={() => this.setState({ "view": "main" })} title="Back" />
             </View>
             <View style={styles.submitButton}>
-              <Button onPress={() => this.setState({ "view": "other" })} title="Submit" />
+              <Button onPress={() => this.setState({ "view": "option" })} title="Submit" />
             </View>
           </ImageBackground>
         </View>
@@ -85,12 +118,40 @@ class App extends React.Component
               <Button onPress={() => this.setState({ "view": "main" })} title="Back" />
             </View>
             <View style={styles.submitButton}>
-              <Button onPress={() => this.setState({ "view": "other" })} title="Submit" />
+              <Button onPress={() => this.setState({ "view": "option" })} title="Submit" />
             </View>   
           </ImageBackground>
         </View>
       )
-  }
+
+      if (view === "option")
+      return (
+        <View style={{width: "100vw", height: "100vh "}}>
+          <ImageBackground source={require("./assets/img/background-mc2.jpg")} style={{width: "100%", height: "100%"}}>
+            <View style={styles.container}>
+              <View style={styles.checkboxContainer}>
+                <Text style={styles.label}>     Pick walking mode!</Text>
+                <Text style={styles.label}>           Free roam</Text>
+                <CheckBox style={styles.checkbox}/>
+                <Text style={styles.label}>           Dog walking</Text>
+                <CheckBox style={styles.checkbox}/>
+                <Text style={styles.label}>         Promoted content</Text>
+                <CheckBox style={styles.checkbox}/>
+                <Text style={styles.label}>           Tourist mode</Text>
+                <CheckBox style={styles.checkbox}/>
+                <Text style={styles.label}>             Jogging</Text>
+                <CheckBox style={styles.checkbox}/>
+                <Text style={styles.label}>             Custom</Text>
+                <CheckBox style={styles.checkbox}/>
+                <View style={styles.submitButton2}>
+                  <Button onPress={() => this.setState({ "view": "mapPicker" })} title="Submit" />
+                </View>  
+              </View>
+            </View>
+          </ImageBackground>
+        </View>
+      )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -102,6 +163,13 @@ const styles = StyleSheet.create({
     left : "45%",
   },
   buttonContainer2 : {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom : "20%",
+    left : "45%",
+  },
+  buttonContainer3 : {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
@@ -186,8 +254,33 @@ const styles = StyleSheet.create({
     position:'absolute',
     bottom: "5%",
     left : "52%"
-  }
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  checkboxContainer: {
+    flexDirection: "column",
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
+  label: {
+    margin: 8,
+  },
+  submitButton2 : {
+    position:'absolute',
+    top: "100%",
+    left : "30%"
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
 });
-
 
 export default App;
